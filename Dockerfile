@@ -1,11 +1,20 @@
-# Use the official Nginx image
-FROM nginx:latest
+# Use an official Node.js runtime as the base image
+FROM node:18-alpine
 
-# Copy all files from the root of the repository to Nginx's default serving location
-COPY . /usr/share/nginx/html
+# Set the working directory inside the container
+WORKDIR /app
 
-# Expose port 80 (the default HTTP port)
-EXPOSE 80
+# Copy package.json and package-lock.json first
+COPY package*.json ./
 
-# Start Nginx and keep it running in the foreground
-CMD ["nginx", "-g", "daemon off;"]
+# Install dependencies
+RUN npm install
+
+# Copy the entire project into the container
+COPY . .
+
+# Expose the port your app runs on
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "start"]

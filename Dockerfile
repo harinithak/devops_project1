@@ -13,8 +13,9 @@ RUN npm install
 # Copy the entire project into the container
 COPY . .
 
-# Set environment variable for OpenSSL
+# Set environment variables
 ENV NODE_OPTIONS=--openssl-legacy-provider
+ENV HOST=0.0.0.0
 
 # Expose the port your app runs on
 EXPOSE 3000
